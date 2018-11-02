@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+<html>
+    {% if not request.user.is_authenticated %}
+    <a href="./login">Login</a>
+    <a href="./register">Register</a>
+    {% endif %}
+</html>
