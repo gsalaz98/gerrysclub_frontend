@@ -1,0 +1,74 @@
+.counter {
+    display: flex;
+    flex-direction: row;
+
+    /* These two properties let us horizontally align
+     * content. Without one of these, the data is misaligned
+     */
+    text-align: center;
+    width: 100%;
+}
+
+.counter-header {
+    margin: 0;
+    font-size: 3em;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+}
+
+.counter-form {
+    display: block;
+    justify-content: center;
+    /* Width property value depenant on .calorie-history's width value*/
+    width: 70%;
+    padding-top: 12px;
+}
+
+.form-label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1em;
+
+    text-align: left;
+}
+
+.calorie-history {
+    background-color: rgb(123, 206, 255);
+    padding-top: 12px;
+    width: 30%;
+
+    border-left: 6px solid rgb(76, 189, 255);
+
+}
+
+.calories-table {
+    margin: 0 auto;
+    /*width: 30em;*/
+}
+
+.calories-table-caption {
+    font-family: 'Roboto', sans-serif;
+    font-size: 3em;
+    font-weight: bold;
+
+    vertical-align: center;
+}
+
+.calories-table-desc {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.5em;
+}
+
+.calorie-entries {
+    font-size: 1.25em;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.calorie-entries:nth-child(even) {
+    border-left: 6px solid rgb(50, 160, 255);
+}
+.calorie-entries:nth-child(odd) {
+    border-left: 6px solid rgb(50, 160, 255);
+}
+
+.timestamp, .food_name, .calories {
+}
