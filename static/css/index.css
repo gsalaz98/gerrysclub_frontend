@@ -14,7 +14,6 @@ html, body {
 .header {
     display: flex;
     flex-direction: row;
-    justify-content: center;
 
     border-bottom: 1px solid #e0e0e0;
     box-shadow: 0px 0px 5px #ccc;
@@ -46,7 +45,7 @@ html, body {
     flex-direction: row;
 
     height: 100%;
-    margin: 0 auto;
+    margin: 0 0 0 auto;
 }
 
 .navbar .element {
@@ -73,4 +72,8 @@ html, body {
     flex: 2;
     height: 100%;
     background-color: rgb(228, 228, 228)
+}
+
+.right {
+    margin: 0 0 0 auto !important;
 }
