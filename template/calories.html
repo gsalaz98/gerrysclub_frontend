@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+        <link href="/static/css/index.css" rel="stylesheet">
+        <link href="/static/css/counter.css" rel="stylesheet">
+{% endblock %}
+
+{% block dropdown_nav %}
+                <a class="dropdown-element" href="#something">Calories</a>
+                <a class="dropdown-element" href="#something">Weight</a>
+                <a class="dropdown-element" href="#something">Nutrition</a>
+                <a class="dropdown-element" href="#something">Statistics</a>
+                <a class="dropdown-element" href="#something">Settings</a>
+                <a class="dropdown-element" style="height: 100%;"></a>
+{% endblock %}
+
+
+{% block app %}
+    <div class="counter">
+        <div class="counter-form">
+            <div class="form-wrapper">
+                <div class="section-header">
+                    <p>Calorie Entry</p>
+                </div>
+                <div class="form-section">
+                    <form action="." method="post">
+                        {% csrf_token %}
+                        {% for form in calorie_form %}
+                        <div class="form">
+                            <div class="form-label">
+                                {{ form.label_tag }}
+                            </div>
+                            <div class="form-input">
+                                {{ form }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="form-submit-wrapper">
+                            <button class="additional-entry-btn">Add To List</button>
+                            <input type="submit" value="Save" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="calorie-chart-wrapper">
+            <div class="section-header">
+                <p>Chart</p>
+            </div>
+        </div>
+        <div class="calorie-history">
+            <div class="section-header">
+                <p>Calorie History</p>
+            </div>
+            <table class="calories-table">
+                {% if calories %}
+                <th class="calories-table-desc">Day</th>
+                <th class="calories-table-desc">Calories</th>
+                {% for entry in calories %}
+                <tr class="calorie-entries">
+                    <td class="timestamp">{{ entry.ts }}</td>
+                    <td class="calories">{{ entry.calories }}</td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <th>No calorie entries found</th>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

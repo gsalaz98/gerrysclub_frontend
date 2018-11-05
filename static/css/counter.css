@@ -5,70 +5,100 @@
     /* These two properties let us horizontally align
      * content. Without one of these, the data is misaligned
      */
-    text-align: center;
     width: 100%;
 }
 
-.counter-header {
-    margin: 0;
-    font-size: 3em;
-    font-weight: bold;
-    font-family: 'Roboto', sans-serif;
+.counter-form {
+    display: inherit;
+    flex-direction: column;
+
+    /* Width property value depenant on .calorie-history's width value*/
+    /*width: 100%;*/
 }
 
-.counter-form {
-    display: block;
-    justify-content: center;
-    /* Width property value depenant on .calorie-history's width value*/
-    width: 70%;
-    padding-top: 12px;
+.form-wrapper {
+}
+
+.form-section {
+    margin: 1em 2em 0 3em;
+}
+
+.form:not(:first-child) {
+    margin-top: 1em;
 }
 
 .form-label {
     font-family: 'Open Sans', sans-serif;
-    font-size: 1em;
-
-    text-align: left;
+    font-size: 1.25em;
+    font-weight: bold;
 }
 
+.form-input input {
+    width: 220px;
+    height: 30px;
+
+    border: 2px solid #333;
+    text-indent: 10px;
+}
+
+.form-input input::placeholder {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.form-submit-wrapper {
+    margin-top: 1em;
+}
+.form-submit-wrapper input {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #000;
+    color: #fff;
+    
+    border: none;
+    padding: 0.5em 1em 0.5em 1em;
+}
+
+.additional-entry-btn {
+    /* Sizes button to equal height of submit button */
+    border: 1px solid #000;
+    background-color: #000;
+    color: #fff;
+
+    padding: 0.5em 1em 0.5em 1em;
+}
+
+/* Calorie chart begin */
+.calorie-chart-wrapper {
+    width: 80%;
+}
+/* Calorie chart end */
+
+
 .calorie-history {
-    background-color: rgb(123, 206, 255);
-    padding-top: 12px;
-    width: 30%;
-
-    border-left: 6px solid rgb(76, 189, 255);
-
+    width:560px;
 }
 
 .calories-table {
-    margin: 0 auto;
-    /*width: 30em;*/
-}
-
-.calories-table-caption {
-    font-family: 'Roboto', sans-serif;
-    font-size: 3em;
-    font-weight: bold;
-
-    vertical-align: center;
+    margin: 1em 1em 0 0;
 }
 
 .calories-table-desc {
     font-family: 'Open Sans', sans-serif;
     font-size: 1.5em;
+
+    width:100%;
 }
 
 .calorie-entries {
     font-size: 1.25em;
     font-family: 'Open Sans', sans-serif;
+    padding-left: 2em;
+
+    text-align: center;
+}
+.section-header:not(:last-of-type) {
+    border-right: 5px solid #444;
 }
 
-.calorie-entries:nth-child(even) {
-    border-left: 6px solid rgb(50, 160, 255);
-}
-.calorie-entries:nth-child(odd) {
-    border-left: 6px solid rgb(50, 160, 255);
-}
-
-.timestamp, .food_name, .calories {
+.section-header:last-child {
+    border-right: 5px solid #444;
 }

@@ -1,7 +1,9 @@
 from django.urls import path
 
-import frontend.views as views
+import calories.views
+import frontend.views
 
 urlpatterns = [
-    path('', views.index)
+    path('', frontend.views.index),
+    path('counter/', calories.views.calories),
 ]
