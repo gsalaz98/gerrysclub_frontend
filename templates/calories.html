@@ -1,7 +1,24 @@
 {% extends "base.html" %}
 
-{% block head %}
+{% block header_js_dom_loaded %}
+                advancedBtn = document.getElementsByClassName("advanced-btn")[0];
+                advancedBtnClick = false;
+                advancedOptions = document.getElementsByClassName("optional-form");
+            
+                advancedBtn.addEventListener("click", function() {
+                    advancedBtnClick = !advancedBtnClick;
 
+                    if (advancedBtnClick) {
+                        advancedBtn.innerHTML = "Advanced ▲";
+                    } else {
+                        advancedBtn.innerHTML = "Advanced ▼";
+                    }
+                    for (i = 0; i < advancedOptions.length; i++) {
+                        toggleDisplay(advancedOptions[i], advancedBtnClick, "inherit");
+                    }
+                });
+{% endblock %}
+{% block head %}
         <link href="/static/css/index.css" rel="stylesheet">
         <link href="/static/css/counter.css" rel="stylesheet">
 {% endblock %}
@@ -26,7 +43,7 @@
                 <div class="form-section">
                     <form action="." method="post">
                         {% csrf_token %}
-                        {% for form in calorie_form %}
+                        {% for form in calorie_form %}{% if forloop.counter < 3 %}
                         <div class="form">
                             <div class="form-label">
                                 {{ form.label_tag }}
@@ -35,6 +52,20 @@
                                 {{ form }}
                             </div>
                         </div>
+                        {% endif %}
+                        {% if forloop.counter == 2 %}
+                        <a class="advanced-btn">Advanced ▼</a>
+                        {% endif %}
+                        {% if forloop.counter0 >= 3 %}
+                        <div class="form optional-form">
+                            <div class="form-label optional-form-label">
+                                {{ form.label_tag }}
+                            </div>
+                            <div class="form-input optional-form-input">
+                                {{ form }}
+                            </div>
+                        </div>
+                        {% endif %}
                         {% endfor %}
                         <div class="form-submit-wrapper">
                             <button class="additional-entry-btn">Add To List</button>
@@ -42,6 +73,9 @@
                         </div>
                     </form>
                 </div>
+            </div>
+            <div class="section-header section-header-padded">
+                <p>Calorie List</p>
             </div>
         </div>
         <div class="calorie-chart-wrapper">
@@ -55,8 +89,10 @@
             </div>
             <table class="calories-table">
                 {% if calories %}
-                <th class="calories-table-desc">Day</th>
-                <th class="calories-table-desc">Calories</th>
+                <tr>
+                    <th class="calories-table-desc">Day</th>
+                    <th class="calories-table-desc">Calories</th>
+                </tr>
                 {% for entry in calories %}
                 <tr class="calorie-entries">
                     <td class="timestamp">{{ entry.ts }}</td>
@@ -64,7 +100,9 @@
                 </tr>
                 {% endfor %}
                 {% else %}
-                <th>No calorie entries found</th>
+                <tr>
+                    <th>No calorie entries found</th>
+                </tr>
                 {% endif %}
             </table>
         </div>

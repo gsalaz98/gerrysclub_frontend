@@ -101,38 +101,47 @@ html, body {
 
 .dropdown-nav a {
     display: block;
-    width: 10em;
+    width: 11em;
 
     text-decoration: none;
-    background-color: #e5e5e5;
+    background-color: #fff;
     color: #111;
 
     padding: 2em 6em 2em 3em;
 
-    border-bottom: 4px solid #aaa;
+    border-right: 2px solid #111;
+    border-bottom: 2px solid #111;
 }
 
+.dropdown-nav a:first-child {
+    border-top: 2px solid #111;
+}
 .dropdown-nav a:hover {
-    background-color: #ccc;
+    background-color: #eee;
 }
 
 .dropdown-nav a:last-child:hover {
-    background-color: #e5e5e5;
+    /* Value dependant on .dropdown-nav a background-color property*/
+    background-color: #fff;
 }
 
 .section-header {
     background-color: #111;
     color: #FFF;
-
-    padding-left: 3em;
 }
 
 .section-header p {
     font-family: 'Roboto', sans-serif;
     font-size: 1.5em;
     font-weight: bold;
-    
+    text-align: center;
+
     margin: 0;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
+
+}
+
+.section-header-padded {
+    margin-top: 2em;
 }

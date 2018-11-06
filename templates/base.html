@@ -1,36 +1,45 @@
 <!DOCTYPE html>
 <html>
     <head>
-        {% block head %}{% endblock %}
         <script>
-            function toggleDropdownMenu(element, openClick) {
-                switch (openClick) {
-                    case true:
-                        element.style.visibility = "initial";
-                        break;
-                    case false:
-                        element.style.visibility = "hidden";
-                        break;
+            function toggleVisibility(element, openClick) {
+                if (openClick) {
+                    element.style.visibility = "initial";
+                } else {
+                    element.style.visibility = "hidden";
                 }
             }
+            function toggleDisplay(element, openClick, displayType) {
+                if (openClick) {
+                    element.style.display = displayType; 
+                } else {
+                    element.style.display = "none";
+                }
+            }
+
             window.addEventListener("DOMContentLoaded", function() {
                 var burger = document.getElementsByClassName("hamburger-container")[0];
                 var dropdownNav = document.getElementsByClassName("dropdown-nav")[0];
-                var openClick = false;
                 
+                var burgerClick = false;
+                var dropdownNavClick = false;
+
                 burger.addEventListener("click", function() {
-                    openClick = !openClick;
-                    toggleDropdownMenu(dropdownNav, openClick);
+                    burgerClick = !burgerClick;
+                    toggleVisibility(dropdownNav, burgerClick);
                 });
                 
                 dropdownNav.addEventListener("click", function() {
-                    openClick = !openClick;
-                    toggleDropdownMenu(dropdownNav, openClick);
-                })
+                    burgerClick = !burgerClick;
+                    toggleVisibility(dropdownNav, burgerClick);
+                });
 
+                {% block header_js_dom_loaded %}{% endblock %}
             }, false);
+            {% block header_js %}{% endblock %}
         </script>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700" rel="stylesheet">
+        {% block head %}{% endblock %}
     </head>
     <body>
         <div class="header">
