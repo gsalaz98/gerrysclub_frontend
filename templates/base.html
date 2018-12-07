@@ -11,7 +11,7 @@
             }
             function toggleDisplay(element, openClick, displayType) {
                 if (openClick) {
-                    element.style.display = displayType; 
+                    element.style.display = displayType;
                 } else {
                     element.style.display = "none";
                 }
@@ -20,7 +20,7 @@
             window.addEventListener("DOMContentLoaded", function() {
                 var burger = document.getElementsByClassName("hamburger-container")[0];
                 var dropdownNav = document.getElementsByClassName("dropdown-nav")[0];
-                
+
                 var burgerClick = false;
                 var dropdownNavClick = false;
 
@@ -28,7 +28,7 @@
                     burgerClick = !burgerClick;
                     toggleVisibility(dropdownNav, burgerClick);
                 });
-                
+
                 dropdownNav.addEventListener("click", function() {
                     burgerClick = !burgerClick;
                     toggleVisibility(dropdownNav, burgerClick);
@@ -43,13 +43,14 @@
     </head>
     <body>
         <div class="header">
+            {% if user.is_authenticated %}
             <button class="hamburger-container">
                 <div class="hamburger"></div>
                 <div class="hamburger"></div>
                 <div class="hamburger"></div>
             </button>
-            <div class="navbar {% if not user.is_authenticated %}right{% endif %}">
-                {% if user.is_authenticated %}
+            {% endif %}
+            <div class="navbar">
                 <a class="element" href="/">Dashboard</a>
                 <a class="element" href="/counter/">Counter</a>
                 <a class="element" href="/feed/">Feed</a>
@@ -57,14 +58,17 @@
                 <a class="element" href="/supporters/">Supporters</a>
                 <a class="element" href="/sponsor/">Sponsor</a>
             </div>
+            {% if user.is_authenticated %}
             <div class="navbar right">
                 <a class="element" href="/accounts/">Account</a>
                 <a class="element" href="/accounts/logout/">Logout</a>
             </div>
-                {% else %}
+            {% else %}
+            <div class="navbar right">
                 <a class="element" href="/accounts/login/">Login</a>
                 <a class="element" href="/accounts/register/">Register</a>
-                {% endif %}
+            </div>
+            {% endif %}
             {% block header %}{% endblock %}
         </div>
         <div class="body-content">
