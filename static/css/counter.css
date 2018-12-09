@@ -13,9 +13,7 @@
     flex-direction: column;
 
     background-color: #fff;
-    border-right: 2px solid #111;
-    /* Width property value depenant on .calorie-history's width value*/
-    /*width: 100%;*/
+    border-right: 2px solid #fff;
 }
 
 .form-wrapper {
@@ -30,7 +28,7 @@
 }
 
 .form-label {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 1.25em;
     font-weight: bold;
 }
@@ -58,25 +56,27 @@
 }
 
 .form-input input {
-    width: 220px;
-    height: 30px;
+    width: 320px;
+    height: 40px;
+
+    margin-top: 1em;
 
     border: 2px solid #333;
     text-indent: 10px;
 }
 
 .form-input input::placeholder {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 .form-submit-wrapper {
     margin-top: 1em;
 }
 .form-submit-wrapper input {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: #000;
     color: #fff;
-    
+
     border: none;
     padding: 0.5em 1em 0.5em 1em;
 }
@@ -90,6 +90,11 @@
     padding: 0.5em 1em 0.5em 1em;
 }
 
+.additional-entry-btn:hover {
+    background-color: #333;
+    cursor: pointer;
+}
+
 /* Calorie chart begin */
 .calorie-chart-wrapper {
     width: 80%;
@@ -99,30 +104,25 @@
 
 .calorie-history {
     width:560px;
-    border-left: 2px solid #111;
+    border-left: 2px solid #fff;
 }
 
 .calories-table {
-    padding: 0;
-    border-bottom: 2px solid #111;
+    padding: 1em 1.5em 2em 1.5em;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    margin: 0 auto;
+    width:100%;
 }
 
 .calories-table-desc {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 1.5em;
 
     width: 100%;
     padding: 0.5em 1em 0.5em 1em;
 }
 
-.calorie-entries {
-    font-size: 1.25em;
-    font-family: 'Open Sans', sans-serif;
-
-    text-align: center;
-
-    border-right: 2px solid #111;
-}
 .section-header:not(:last-of-type) {
 }
 
