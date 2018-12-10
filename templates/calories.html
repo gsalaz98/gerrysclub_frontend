@@ -79,6 +79,12 @@
             <div class="section-header">
                 <p>Chart</p>
             </div>
+            <div class="calorie-chart">
+                <script>
+                    var daily_data = [{% for entry in calories_daily %}{ date: "{{ entry.calorie_day }}", amount: {{ entry.calorie_sum }} },{% endfor %}];
+                    console.log(daily_data);
+                </script>
+            </div>
         </div>
         <div class="calorie-history">
             <div class="section-header">

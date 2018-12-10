@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: row;
 
+    color: #fff;
+
     /* These two properties let us horizontally align
      * content. Without one of these, the data is misaligned
      */
@@ -12,8 +14,7 @@
     display: inherit;
     flex-direction: column;
 
-    background-color: #fff;
-    border-right: 2px solid #fff;
+    /*border-right: 2px solid #fff;*/
 }
 
 .form-wrapper {
@@ -61,8 +62,11 @@
 
     margin-top: 1em;
 
-    border: 2px solid #333;
+    border: 2px solid #000;
     text-indent: 10px;
+
+    background-color: #262626;
+    color: #fff;
 }
 
 .form-input input::placeholder {
@@ -104,11 +108,11 @@
 
 .calorie-history {
     width:560px;
-    border-left: 2px solid #fff;
+    /*border-left: 2px solid #fff;*/
 }
 
 .calories-table {
-    padding: 1em 1.5em 2em 1.5em;
+    padding: 0em 1.5em 2em 0em;
     text-align: center;
     font-family: 'Roboto', sans-serif;
     margin: 0 auto;
