@@ -24,13 +24,18 @@
                 var burgerClick = false;
                 var dropdownNavClick = false;
 
-                burger.addEventListener("click", function() {
+                burger.addEventListener("click", function(e) {
                     burgerClick = !burgerClick;
                     toggleVisibility(dropdownNav, burgerClick);
                 });
 
-                dropdownNav.addEventListener("click", function() {
+                dropdownNav.addEventListener("click", function(e) {
                     burgerClick = !burgerClick;
+
+                    if (e.target.nextElementSibling == null) {
+                        return;
+                    };
+
                     toggleVisibility(dropdownNav, burgerClick);
                 });
 

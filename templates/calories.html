@@ -1,6 +1,37 @@
 {% extends "base.html" %}
 
 {% block header_js_dom_loaded %}
+                var toggleActive = function(tag) {
+                    if (tag.className.indexOf("form-tab-active") !== -1) {
+                        tag.className = tag.className.replace(" form-tab-active", "");
+                    } else {
+                        tag.className += " form-tab-active";
+                    }
+                };
+
+                var changeStatus = function(e) {
+                    if (this.className.indexOf(" form-tab-active") === -1) {
+                        var calorieCounter = document.getElementsByClassName("calorie-counter")[0];
+                        var weightCounter = document.getElementsByClassName("weight-counter")[0];
+
+                        if (this === weightTab[0]) {
+                            calorieCounter.style.display = "none";
+                            weightCounter.style.display = "inherit";
+                        } else {
+                            weightCounter.style.display = "none";
+                            calorieCounter.style.display = "inherit";
+                        }
+                    }
+                };
+
+                calorieTab = document.getElementsByClassName("calories-tab");
+                weightTab = document.getElementsByClassName("weight-tab");
+
+                calorieTab[0].addEventListener("click", changeStatus);
+                calorieTab[1].addEventListener("click", changeStatus);
+                weightTab[0].addEventListener("click", changeStatus);
+                weightTab[1].addEventListener("click", changeStatus);
+
                 advancedBtn = document.getElementsByClassName("advanced-btn")[0];
                 advancedBtnClick = false;
                 advancedOptions = document.getElementsByClassName("optional-form");
@@ -17,6 +48,8 @@
                         toggleDisplay(advancedOptions[i], advancedBtnClick, "inherit");
                     }
                 });
+
+
 {% endblock %}
 {% block head %}
         <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -35,54 +68,63 @@
 
 
 {% block app %}
-    <div class="counter">
+    <div class="calorie-counter">
         <div class="counter-form">
-            <div class="form-wrapper">
-                <div class="section-header">
+            <div class="calorie-form">
+                <div class="section-header calorie-header">
                     <p>Calorie Entry</p>
                 </div>
-                <div class="form-section">
-                    <form action="." method="post">
-                        {% csrf_token %}
-                        {% for form in calorie_form %}{% if forloop.counter < 3 %}
-                        <div class="form">
-                            <div class="form-label">
-                                {{ form.label_tag }}
+                <div class="form-body">
+                    <div class="form-tabs">
+                        <a class="form-tab calories-tab form-tab-active">Calories</a>
+                        <a class="form-tab weight-tab">Weight</a>
+                    </div>
+                    <div class="calorie-form-section">
+                        <form action="." method="post">
+                            {% csrf_token %}
+                            {% for form in calorie_form %}
+                            {% if forloop.counter < 6 %}
+                            <div class="form">
+                                <div class="form-label">
+                                    {{ form.label_tag }}
+                                </div>
+                                <div class="form-input">
+                                    {{ form }}
+                                </div>
                             </div>
-                            <div class="form-input">
-                                {{ form }}
+                            {% endif %}
+                            {% if forloop.counter == 5 %}
+                            <a class="advanced-btn">Advanced ▼</a>
+                            {% endif %}
+                            {% if forloop.counter0 >= 5 %}
+                            <div class="form optional-form">
+                                <div class="form-label optional-form-label">
+                                    {{ form.label_tag }}
+                                </div>
+                                <div class="form-input optional-form-input">
+                                    {{ form }}
+                                </div>
                             </div>
-                        </div>
-                        {% endif %}
-                        {% if forloop.counter == 2 %}
-                        <a class="advanced-btn">Advanced ▼</a>
-                        {% endif %}
-                        {% if forloop.counter0 >= 3 %}
-                        <div class="form optional-form">
-                            <div class="form-label optional-form-label">
-                                {{ form.label_tag }}
+                            {% endif %}
+                            {% endfor %}
+                            <div class="form-submit-wrapper">
+                                <button class="additional-entry-btn" type="submit">Save</button>
                             </div>
-                            <div class="form-input optional-form-input">
-                                {{ form }}
-                            </div>
-                        </div>
-                        {% endif %}
-                        {% endfor %}
-                        <div class="form-submit-wrapper">
-                            <button class="additional-entry-btn" type="submit">Save</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="calorie-chart-wrapper">
+        <div class="chart-wrapper">
             <div class="section-header">
                 <p>Chart</p>
             </div>
             <div class="calorie-chart">
+                <svg></svg>
                 <script>
                     var daily_data = [{% for entry in calories_daily %}{ date: "{{ entry.calorie_day }}", amount: {{ entry.calorie_sum }} },{% endfor %}];
-                    console.log(daily_data);
+
+                    var svg = d3.select("svg");
                 </script>
             </div>
         </div>
@@ -90,13 +132,112 @@
             <div class="section-header">
                 <p>Calorie History</p>
             </div>
+            <div class="table-body">
+                <table class="calories-table">
+                    {% if calories_daily %}
+                    <tr>
+                        <th class="calories-table-desc">Date</th>
+                        <th class="calories-table-desc">Calories</th>
+                    </tr>
+                    {% for entry in calories_daily %}
+                    <tr class="calorie-entries">
+                        <td class="timestamp">{{ entry.calorie_day }}</td>
+                        <td class="calories">{{ entry.calorie_sum }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <th style="text-align: center;">No calorie entries found</th>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="weight-counter">
+        <div class="counter-form">
+            <div class="calorie-form">
+                <div class="section-header calorie-header">
+                    <p>Weight Entry</p>
+                </div>
+                <div class="form-body">
+                    <div class="form-tabs">
+                        <a class="form-tab calories-tab">Calories</a>
+                        <a class="form-tab weight-tab form-tab-active">Weight</a>
+                    </div>
+                    <div class="weight-form-section">
+                        <form action="/weight/" method="post">
+                            {% csrf_token %}
+                            {% for form in weight_form %}
+                            {% if forloop.counter < 5 %}
+                            <div class="form">
+                                <div class="form-label">
+                                    {{ form.label_tag }}
+                                </div>
+                                <div class="form-input">
+                                    {{ form }}
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            <div class="form-submit-wrapper">
+                                <button class="additional-entry-btn" type="submit">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chart-wrapper">
+            <div class="section-header">
+                <p>Chart</p>
+            </div>
+            <div class="weight-chart">
+                <svg></svg>
+                <script>
+                    var daily_data = [{% for entry in calories_daily %}{ date: "{{ entry.calorie_day }}", amount: {{ entry.calorie_sum }} },{% endfor %}];
+                    var svg = d3.select("svg")
+                        .attr("width", 100)
+                        .attr("height", 100);
+
+                    var g = svg.append("g")
+                        .attr("width", 100)
+                        .attr("height", 100);
+
+                    var x = d3.scaleTime().rangeRound([0, 100]);
+                    var y = d3.scaleLinear().rangeRound([100, 0]);
+
+                    var line = d3.line()
+                        .x(function(e) { return x(e.date); })
+                        .y(function(e) { return y(e.amount); });
+
+                    x.domain(d3.extent(daily_data, function(e) { return e.date; }));
+                    y.domain(d3.extent(daily_data, function(e) { return e.amount }));
+
+                    g.append("path")
+                        .datum(daily_data)
+                        .attr("fill", "none")
+                        .attr("stroke", "steelblue")
+                        .attr("stroke-linejoin", "round")
+                        .attr("stroke-linecap", "round")
+                        .attr("stroke-width", 1.5)
+                        .attr("d", line);
+
+                </script>
+            </div>
+        </div>
+        <div class="calorie-history">
+            <div class="section-header">
+                <p>Weight History</p>
+            </div>
+            <div class="table-body">
             <table class="calories-table">
-                {% if calories_daily %}
+                {% if weight_daily %}
                 <tr>
-                    <th class="calories-table-desc">Day</th>
+                    <th class="calories-table-desc">Date</th>
                     <th class="calories-table-desc">Calories</th>
                 </tr>
-                {% for entry in calories_daily %}
+                {% for entry in weight_daily %}
                 <tr class="calorie-entries">
                     <td class="timestamp">{{ entry.calorie_day }}</td>
                     <td class="calories">{{ entry.calorie_sum }}</td>
@@ -104,10 +245,11 @@
                 {% endfor %}
                 {% else %}
                 <tr>
-                    <th>No calorie entries found</th>
+                    <th style="text-align: center;">No weight entries found</th>
                 </tr>
                 {% endif %}
             </table>
+            </div>
         </div>
     </div>
 {% endblock %}

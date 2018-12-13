@@ -3,6 +3,8 @@ html, body {
     padding: 0;
 
     height: 100%;
+
+    background-color: #1a1a1a;
 }
 
 .body-content {
@@ -30,6 +32,8 @@ html, body {
     margin-right: 0;
     background: none;
     border: none;
+
+    display: none;
 }
 
 .hamburger-container:hover {
@@ -99,7 +103,7 @@ html, body {
     width: 100%;
     height: 100%;
 
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(200, 200, 200, 0.6);
 }
 
 .dropdown-nav a {
@@ -107,8 +111,8 @@ html, body {
     width: 11em;
 
     text-decoration: none;
-    background-color: #fff;
-    color: #111;
+    background-color: #444;
+    color: #fff;
 
     padding: 2em 6em 2em 3em;
 
@@ -117,19 +121,18 @@ html, body {
 }
 
 .dropdown-nav a:first-child {
-    border-top: 2px solid #111;
 }
 .dropdown-nav a:hover {
-    background-color: #eee;
+    background-color: #5a5a5a;
 }
 
 .dropdown-nav a:last-child:hover {
     /* Value dependant on .dropdown-nav a background-color property*/
-    background-color: #fff;
+    background-color: #444;
 }
 
 .section-header {
-    background-color: #352c95;
+    background-color: #000;
     color: #fff;
 }
 
